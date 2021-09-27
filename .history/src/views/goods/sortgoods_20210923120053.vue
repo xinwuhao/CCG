@@ -1,0 +1,26 @@
+<template>
+  <div class="box">
+    <!-- 左边 -->
+    <div>123</div>
+    <!-- 右边 -->
+    <div>
+      <div class="newlyBox"></div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+</script>
+
+<style scoped>
+.box {
+  display: flex;
+  justify-content: space-between;
+  width: 98%;
+  padding: 20px;
+}
+.newlyBox {
+  display: flex;
+  justify-content: space-between;
+}
+</style>

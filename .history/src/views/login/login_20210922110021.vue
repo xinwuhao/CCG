@@ -1,0 +1,117 @@
+<template>
+  <div class="box">
+    <div class="bo">
+      <div class="siez1">欢迎来到小爱后台管理系统</div>
+      <el-form
+        :model="ruleForm"
+        :rules="rules"
+        ref="ruleFormsss"
+        label-width="120px"
+      >
+        <el-form-item label="请输入用户名" prop="username">
+          <el-input v-model="ruleForm.username"></el-input>
+        </el-form-item>
+        <el-form-item label="请输入密码" prop="password">
+          <el-input type="password" v-model="ruleForm.password"></el-input>
+        </el-form-item>
+        <div class="size">
+          特别提醒:
+          如果您是管理员,请使用管理员账号登录,如果不知道账号,请联系公司人事。
+        </div>
+        <div class="cent">
+          <el-form-item>
+            <el-button type="primary" size="medium" @click="submitForm"
+              >立即登录</el-button
+            >
+          </el-form-item>
+        </div>
+      </el-form>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent, ref } from "vue";
+import api from "@/http/aip";
+import { ElMessage } from "element-plus";
+import router from "@/router";
+
+interface Obj {
+  username: string;
+  password: string;
+}
+
+export default defineComponent({
+  setup() {
+    //定义变量
+    const ruleFormsss = ref(null);
+    let ruleForm = ref<Obj>({
+      username: "",
+      password: "",
+    });
+
+    let rules = {
+      username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+      password: [{ required: true, message: "请输入密码", trigger: "blur" }],
+    };
+    //   //定义方法
+    let submitForm = () => {
+      api
+        .login({
+          username: ruleForm.value.username,
+          password: ruleForm.value.password,
+        })
+        .then((res) => {
+          let data = res as any;
+          // console.log(res);
+          if (data.meta.status == 200) {
+            ElMessage.success("登录成功");
+            localStorage.setItem("login", JSON.stringify(data.data));
+            localStorage.setItem("token", data.data.token);
+            router.push("/");
+          } else {
+            ElMessage.error("用户名或密码有误，请重新输入");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    return {
+      ruleForm,
+      rules,
+      submitForm,
+    };
+  },
+});
+</script>
+
+<style scoped>
+.box {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cent {
+  display: flex;
+  justify-content: center;
+  margin: 20px 100px 0px 0px;
+}
+.size {
+  font-size: 12px;
+  color: #a9a9a9;
+  text-align: center;
+}
+.bo {
+  border: 4px solid rgba(211, 211, 211, 0.2);
+  padding: 20px;
+}
+.siez1 {
+  font-size: 25px;
+  text-align: center;
+  margin: 10px 0px;
+  flex-wrap: wrap;
+}
+</style>
