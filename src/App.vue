@@ -1,6 +1,5 @@
 <template>
   <div>
-    五号666
     <router-view></router-view>
   </div>
 </template>
