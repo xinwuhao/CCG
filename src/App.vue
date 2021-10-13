@@ -1,6 +1,6 @@
 <template>
   <div>
-    五号666
+    好的呢hx
     <router-view></router-view>
   </div>
 </template>
