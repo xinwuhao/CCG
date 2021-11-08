@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <div>123447774</div>
+    <div>123444</div>
     <el-card class="box-card">
       <div class="text item">
         <div class="fontTile">小米Lite</div>
@@ -84,7 +84,7 @@ let getlong = () => {
       console.log(err);
     });
 };
-</script>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </script>
 
 <style scoped>
 .box {
